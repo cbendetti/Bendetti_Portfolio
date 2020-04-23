@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Statistics and Data Science | Camilla Bendetti</title>
+    <link>/tag/statistics-and-data-science/</link>
+      <atom:link href="/tag/statistics-and-data-science/index.xml" rel="self" type="application/rss+xml" />
+    <description>Statistics and Data Science</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Camilla Bendetti 2020</copyright><lastBuildDate>Wed, 22 Apr 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Statistics and Data Science</title>
+      <link>/tag/statistics-and-data-science/</link>
+    </image>
+    
+    <item>
+      <title>An Analysis of the Death Penalty in the United States</title>
+      <link>/project/deathpenalty/</link>
+      <pubDate>Wed, 22 Apr 2020 00:00:00 +0000</pubDate>
+      <guid>/project/deathpenalty/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;/files/DeathPenaltyBlog%20copy.html&#34;&gt;View My Report&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Abstract:&lt;/p&gt;
+&lt;p&gt;This is a project that I completed for my Introduction to Data Science Class. In this project, I explored the role that race, gender and region play on the implementation of the death penalty in the United States. Thank you to my group members Anna Bebbington, Maxwell Kent, and Dylan Kurzer-Ogul for their work on this project.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Forecasting Crime in Chicago Communities</title>
+      <link>/project/forecasting-crime-in-chicago-communities/</link>
+      <pubDate>Mon, 20 Apr 2020 00:00:00 +0000</pubDate>
+      <guid>/project/forecasting-crime-in-chicago-communities/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;/files/FinalReport.html&#34;&gt;View My Paper&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;/files/Capstone.MOV&#34;&gt;Watch My Presentation&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;/files/Capstone_Presentation.pdf&#34;&gt;View My Presentation Slides&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Abstract:&lt;/p&gt;
+&lt;p&gt;In this report, with the help of my co-author Alexnder Foster, I explore how historical crime data can be used to predict future crimes in the City of Chicago. A few cities in California have started to implement a predictive policing algorithm, called PredPol, that does just this. PredPol outputs &amp;ldquo;500x500 square foot&amp;rdquo; locations for officers to patrol in their &amp;ldquo;uncommitted time&amp;rdquo; [@Lam2019] and has been found to be &amp;ldquo;ten times as efficient as random patrolling&amp;rdquo; [@o2016weapons]. We use a marginal model to forecast future crimes and we visualize our findings using spatial data in order to explore predictive policing in Chicago. &lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
