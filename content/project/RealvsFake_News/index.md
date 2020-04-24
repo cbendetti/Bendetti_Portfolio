@@ -7,7 +7,7 @@ image:
 links:
 summary: A classificaion analysis using text data
 tags:
-- Deep Learning
+- Statistics and Data Science
 title: Deciphering Real vs. Fake News
 url_code: ""
 url_pdf: ""
