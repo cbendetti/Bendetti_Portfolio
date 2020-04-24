@@ -1,0 +1,367 @@
+---
+title: "Deciphering Real vs. Fake News"
+author: Camilla Bendetti, Jane Roarty, Max Kent, Flora Fouladi
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+---
+# Step 1: Process the data
+```{r include=FALSE, message=FALSE}
+library(dplyr)
+library(rpart)
+library(ggplot2)
+library(caret)
+```
+
+Thank you to our professor Alicia Johnson and Buzzfeed for providing this dataset. The original dataset included columns for the title of the article, the text of the article, the author, the url, the source, and the real or fake classification. 
+```{r}
+buzz <- read.csv("https://www.macalester.edu/~ajohns24/data/buzzfeed.csv")
+```
+
+
+### Defining possible predictors
+
+The first step of our classification analysis was to explore possible predictors of fake news. The following are 16 possible predictors.
+
+- The number of exclamation points in the article
+- Title Length
+- Whether or not the article was published in the top 4 news sources. We classified these as either cnn, politi, abcn, or the washington post
+- ALL CAPS in title
+- Look for "..."
+- ALL CAPS text
+- Article length 
+- If there is an author or not 
+- Presence of slang
+- Number of times Hillary is mentioned
+- Number of times Trump is mentioned
+- Look for extreme sentiment (packages for sentiment analysis in R
+- Partisanship 
+- Words and strings after the .com/ or .org/ in the url
+- Mention words like share, twitter, and facebook
+- Presense of asterisks as curse words
+
+
+### Example of our variables in use:
+
+To demonstrate and summarize the definitions of your new predictors, discuss their measurements for one real sample article and one fake sample article of your choosing.
+
+Fake - Article 176
+
+- The number of exclamation points in the article: None
+- Title Length: Long
+- Whether or not the article was published in the top 4 news sources. We classified these as either cnn, politi, abcn, or the washington post: Not in these sources
+- ALL CAPS in title: Yes, HILLARY ON DISABLED CHILDREN
+- Look for "...": None
+- ALL CAPS text: Yes
+- Article length: Short/average
+- If there is an author or not: Yes, there is an author
+- Presence of slang: Yes, there are slang words
+- Number of times Hillary is mentioned: Many
+- Number of times Trump is mentioned: None
+- Look for extreme sentiment (packages for sentiment analysis in R: Yes
+- Partisanship: Extreme right
+- Words and strings after the .com/ or .org/ in the url: Yes
+- Mention words like share, twitter, and facebook: Yes
+- Presense of asterisks: Yes
+
+Real - Article 171
+
+- The number of exclamation points in the article: None
+- Title Length: Short
+- Whether or not the article was published in the top 4 news sources. We classified these as either cnn, politi, abcn, or the washington post: Yes, CNN
+- ALL CAPS in title: No
+- Look for "...": No
+- ALL CAPS text: Yes
+- Article length: Short
+- If there is an author or not: Yes, there is an author
+- Presence of slang: No
+- Number of times Hillary is mentioned: Hillary is not mentioned
+- Number of times Trump is mentioned: Trump is mentioned
+- Look for extreme sentiment (packages for sentiment analysis in R: Yes
+- Partisanship: MOderate or Left
+- Words and strings after the .com/ or .org/ in the url: No
+- Mention words like share, twitter, and facebook: No
+- Presense of asterisks: No
+
+### Drawbacks: 
+
+One rawback is that when we look for ALL CAPS we sometimes catch acronyms. For example, websites like CNN report real real, but we found many fake articles that use all capital letters in the title. Another drawback is that text analysis is less computationally efficent because we have to scan all the text. We also have to make partial judgements on what is important in writing like punctuation, slang, and sentiment. Additionally, many factors that might be better predictors of whether or not an article is fake are content based and hard to capture in variables. While we are able to use the sentiment dictionary to assess the sentiment of the articles, there is much variation in content that goes beyond existing dictionaries.
+
+
+# Step 2: Constructing the Model
+
+
+### Building Variables
+
+```{r, include=FALSE, message=FALSE}
+library(dplyr)
+library(ggplot2)
+library(ngram)
+library(stringr)
+library(syuzhet)
+library(lexicon)
+library(caret)    
+library(rpart.plot) 
+library(randomForest)
+```
+
+Counting number of exclamation points in the title
+```{r}
+buzz_new <- buzz%>%
+  mutate(exclamationpoints_title= str_count(title, pattern = "!"))
+```
+
+Counting number of exclamation points in the text
+```{r}
+buzz_new <- buzz_new%>%
+  mutate(exclamationpoints_text= str_count(title, pattern = "!"))
+```
+
+Detects ... in the title
+```{r}
+buzz_new <- buzz_new%>%
+  mutate(ellipsis_title= str_count(title, pattern = "..."))
+```
+
+Detects ... in the text
+```{r}
+buzz_new <- buzz_new%>%
+  mutate(ellipsis_text= str_count(text, pattern = "..."))
+```
+
+Length of the title, text, number of capital letters in title and text
+```{r}
+text_char_len <- str_count(buzz$text)
+title_char_len <- str_count(buzz$title)
+title_caps <- str_count(buzz$title, "[A-Z]")
+text_caps <- str_count(buzz$text, "[A-Z]")
+
+buzz_new <- buzz_new %>% 
+  mutate(title_length = title_char_len) %>%
+  mutate(text_length = text_char_len) %>% 
+  mutate(title_caps = title_caps) %>% 
+  mutate(text_caps = text_caps)
+```
+
+Number of times social media is mentioned
+```{r}
+buzz_new<- buzz_new%>%
+  mutate(socialmedia= str_count(text, pattern = "instagram|twitter|facebook"))%>%
+  arrange(socialmedia)
+```
+
+Number of times Trump is mentioned in the text
+```{r}
+buzz_new<- buzz_new%>%
+  mutate(Trump= str_count(text, pattern = "Trump"))
+```
+
+Number of times Hillary is mentioned in the text
+```{r}
+buzz_new<- buzz_new%>%
+  mutate(Hillary= str_count(text, pattern= "Hillary"))
+```
+
+Detects if there is an author or not
+```{r}
+buzz_new<- buzz_new%>%
+  mutate(author_na = str_count(authors, pattern = " ")) %>%
+  mutate(has_author = (author_na > 0))
+```
+
+Top four detection
+```{r}
+buzz_new<-buzz_new%>%
+  mutate(topfour= str_detect(source, pattern = "cnn|abcn|politi"))
+
+buzz_new_1<- buzz_new%>%
+  select(source, topfour)
+```
+
+Uses the sentiment dictionary to assess the sentiment of the text of the articles
+```{r}
+sentiment <- get_nrc_sentiment(as.character(buzz$text))
+buzz_big <- cbind(buzz_new, sentiment)
+```
+
+```{r, message=FALSE, include=FALSE}
+summary(buzz_big$type)
+```
+After looking at a summary of the data, we found that there are 91 real articles and 91 fakes articles.
+
+# Creating a TREE model
+
+We used a tree model in order to select our variables and predict whether or not an article is fake news. We started by including all of our variables as predictors in tree_model, with a cp range of (0.01, 0.5). We selected this range after looking at a bigger range and narrowing after we saw the accuracy leveled off at 0.835. We used the `best` selection function to select a cp value because we wanted to most accurately predict the truthfulness of a source. As we can see from the plot of cp values below, cp values from slightly after 0.04 onward all had the same accuracy values. The `best` function always includes that largest cp value with the best accuracy rate so it will always be the largest value we include since the accuracy leveled off. Because of this, our best cp value is 0.5.  
+As we can see in the following plot, the only important predictor in the tree with cp 0.5 is whether or not the news source is in the top four news sources.  
+Since top_four is probably too predictive, however, we built another tree model without this predictor in order to find the other significant predictors. 
+
+### Tree 1
+```{r cache=FALSE}
+set.seed(253)
+
+tree_model <- train(
+  type ~ exclamationpoints_text + exclamationpoints_title + ellipsis_title + ellipsis_text + title_length + text_length + title_caps + text_caps + socialmedia + Trump + Hillary + author_na + has_author+topfour +anger+anticipation+disgust+fear+joy+sadness+surprise+trust+negative+positive,
+  data = buzz_big,
+  method = "rpart",
+  tuneGrid = data.frame(cp = seq(0.01, 0.5, length = 50)),
+  trControl = trainControl(method = "cv", number = 10, selectionFunction = "best"),
+  metric = "Accuracy",
+  na.action = na.omit
+)
+```
+
+```{r, include=FALSE}
+tree_model$bestTune
+#tree_model$resample
+#tree_model$results
+```
+
+
+```{r, echo=FALSE}
+plot(tree_model)
+```
+
+```{r cache=FALSE, echo=FALSE}
+rpart.plot(tree_model$finalModel)
+
+tree_model$finalModel$variable.importance
+```
+
+We took out top_four for our tree_model_2. Here, we replicated the model above with best cp again, and this time got a cp value of 0.48. As we can see in the plot of the tree below, the number of capital letters in the title is the only predictor in the tree. 
+
+### Tree 2
+```{r cache=FALSE}
+set.seed(253)
+
+tree_model_2 <- train(
+  type ~ exclamationpoints_text + exclamationpoints_title + ellipsis_title + ellipsis_text + title_length + text_length + title_caps + text_caps + socialmedia + Trump + Hillary + author_na + has_author +anger+anticipation+disgust+fear+joy+sadness+surprise+trust+negative+positive,
+  data = buzz_big,
+  method = "rpart",
+  tuneGrid = data.frame(cp = seq(0.01, 0.5, length = 50)),
+  trControl = trainControl(method = "cv", number = 10, selectionFunction = "best"),
+  metric = "Accuracy",
+  na.action = na.omit
+)
+```
+
+```{r, include=FALSE}
+tree_model_2$bestTune
+tree_model_2$resample
+tree_model_2$results
+```
+
+```{r cache=FALSE, echo=FALSE}
+plot(tree_model_2)
+```
+
+```{r cache=FALSE, echo=FALSE}
+rpart.plot(tree_model_2$finalModel)
+
+tree_model_2$finalModel$variable.importance
+
+tree_model_2$results %>%
+ summarize(mean(Accuracy))
+```
+
+
+# Building a FOREST model
+
+To improve our tree function above, we built a forest model in order to test the accuracy of many trees. As the plot of our accuracies shows, the accuracy of the model changes dramatically and dynamically when you add more variables to the model. Our final model includes three variables: the number of capital letters in the title, the number of capital letters in the text, and the sentiment of disgust. Furthermore, the confusion matrix shows that the model incorrectly classifies real articles ~31% of the time and fake articles only ~24% of the time. Therefore, there is a higher likelyhood of a false positive than a true negative prediction using these three predictors. 
+
+### Forest model
+```{r}
+set.seed(253)
+
+forest_regression <- train(
+  type ~ exclamationpoints_text + exclamationpoints_title + ellipsis_title + ellipsis_text + title_length + text_length + title_caps + text_caps + socialmedia + Trump + Hillary + author_na + has_author+anger+anticipation+disgust+fear+joy+sadness+surprise+trust+negative+positive,
+  data = buzz_big,
+  method = "rf",
+  tuneGrid = data.frame(mtry = seq(1:23)),
+  trControl = trainControl(method = "oob"),
+  metric = "Accuracy",
+  na.action = na.omit
+  )
+```
+
+```{r, echo=FALSE}
+plot(forest_regression)
+```
+
+
+### Confusion matrix
+```{r}
+forest_regression$finalModel
+forest_regression$bestTune
+forest_regression$results
+```
+
+### Variable importance
+```{r, cache=FALSE}
+variable_importance <- data.frame(importance(forest_regression$finalModel)) %>% 
+  mutate(predictor = rownames(.))
+
+variable_importance
+```
+
+Arrange predictors by importance (most to least)
+```{r}
+variable_importance %>% 
+  arrange(desc(MeanDecreaseGini)) %>% 
+  head(9)
+```
+
+Arrange predictors by importance (least to most)
+```{r}
+variable_importance %>% 
+  arrange(MeanDecreaseGini) %>% 
+  head()
+```
+
+### Testing Accuracy
+
+```{r, cache=FALSE}
+forest_regression$results%>%
+  summarize(mean(Accuracy))
+tree_model_2$results%>%
+  summarize(mean(Accuracy))
+```
+
+
+After comparing the tree and the forest model, we recommend using our forest model because the forest model(~73.8%) has a higher accuracy rate than the tree model(~72.6%) . This should be expected, because forests re-test many trees to find the most accurate predictors for our model. Although the tree model is simpler since it uses only one predictor, we think it is appropriate to look at two other predictors to increase the accuracy rate of classifying news articles.   
+
+
+# Step 3: Summarize
+
+In our final model we chose to include all of our predictors except top_four. We found that top_four would be too predictive of realness of the article. If the article was from one of our predetermined top four sources (cnn, washington post, politico, abc) it was always real. Therefore, it would always predict real articles if they were from the top four news sources. 
+
+Social media was not as useful as we thought it might be. The social media predictor is counting the number of times "twitter", "instagram", and "facebook" are included as text in the article. However, our code does not include the mentions when those words are used in buttons. For example, some articles prompt their readers to share the article on social media and if this is through a button, our code will not catch the mention. 
+
+### Plots
+```{r, include=FALSE}
+cap_title <- ggplot(buzz_big, aes(x = type, y= title_caps)) +
+  geom_boxplot() +
+  labs(x = "type", y = "number of capital letters", title = "Total Number of Capital Letters in the Title")
+
+cap_text <- ggplot(buzz_big, aes(x = type, y= text_caps)) + 
+  geom_boxplot() +
+  ylim(0,300) +
+  labs(x = "type", y = "number of capital letters", title = "Total Number of Capital Letters in the Text")
+
+disgust <- ggplot(buzz_big, aes(x = type, y= disgust)) + 
+  geom_boxplot() +
+  ylim(0,25) +
+  labs(x = "type", y = "disgust", title = "Sentiment of Disgust")
+```
+
+```{r, echo=FALSE, warning=FALSE}
+cap_title
+cap_text
+disgust
+```
+
+The predictors that we found to be most useful are title_caps, text_caps, and disgust. title_caps counts how many capital letters a title has. We predicted that titles that have alot of capital letters, for example words that are in ALL CAPS, would be fake. text_caps counts how many capital letters are in the text. Disgust detects the sentiment of the the text. Disgust was the most predictive of whether or not an article was fake.
+
+
+# Step 4: Contributions
+All members of the group collaboratively came up with the variables, explanations, and conclusions. We split up making new predictors and wrote the analysis and summary together. All members contributed equally to the project.
