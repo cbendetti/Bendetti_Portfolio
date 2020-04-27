@@ -10,7 +10,7 @@ links:
 #  name: Follow
 #  url: https://twitter.com/georgecushen
 # slides: example
-summary: An discussion of Kripke's theory of language and breaking the rules of art.
+summary: A discussion of Kripke's theory of language.
 tags:
 - Philosophy 
 title: Breaking the Rules of Art
