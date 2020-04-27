@@ -14,11 +14,9 @@ url_slides: ""
 url_video: ""
 ---
 
-#{{% staticref "files/FinalReport.html" %}}View My Paper{{% /staticref %}}
+Final Paper in Progress
 
 {{% staticref "files/PredictivePolicing.pdf" %}}View My Presentation Slides{{% /staticref %}}
-
-Final Paper in Progress
 
 Abstract: 
 
