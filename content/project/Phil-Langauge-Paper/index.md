@@ -2,7 +2,7 @@
 date: "2020-04-27T00:00:00Z"
 external_link: ""
 image:
-  caption: The Hallucinogenic Toreador 
+  caption: Guernica 
   focal_point: Smart
 links:
 # - icon: twitter
