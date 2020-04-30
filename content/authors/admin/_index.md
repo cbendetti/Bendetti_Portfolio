@@ -7,7 +7,7 @@ education:
   - course: Masters in Business Analytics
     institution: University of Maryland
     relevant courses: 
-    year: 2022
+    year: 2021
   - course: B.A. in Statistics and Philosophy
     institution: Macalester College
     relevant courses: Bayesian Statistics, Correlated Data, Statistical Machine Learning, Computational Linear Algebra, Probability, Data Science, Causal Inference
