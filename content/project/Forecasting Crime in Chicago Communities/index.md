@@ -22,7 +22,7 @@ url_video: ""
 
 {{% staticref "files/FinalReport.html" %}}View My Paper{{% /staticref %}}
 
-{{% staticref "files/Capstone.MOV" %}}Watch My Presentation{{% /staticref %}}
+[Watch My Presentation](https://youtu.be/0aOCUtnE2iM)
 
 {{% staticref "files/Capstone_Presentation.pdf" %}}View My Presentation Slides{{% /staticref %}}
 
