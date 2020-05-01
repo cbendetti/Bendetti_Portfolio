@@ -14,11 +14,12 @@ education:
     year: 2020
 email: ""
 interests:
-- Crime data & analysis
-- Correlated data
-- Data Science, data visualization 
-- Ethics
-- Epistemology
+- Correlated Data
+- Crime Data & Analysis
+- Data Science
+- Data Visualization 
+- Data Ethics
+- Database Management
 organizations:
 - name: University of Maryland
   url: ""
@@ -43,6 +44,6 @@ user_groups:
 - Visitors
 ---
 
-I'm a senior at [Macalester College](https://www.macalester.edu/) studying Statistics and Philosophy. I am looking forward to starting a Masters in Buisness Analytics at the Robert H. Smith School of Buisness at the [University of Maryland](https://www.rhsmith.umd.edu/) in August 2020.
+Camilla is a incoming student at the Robert H. Smith School of Buisness at the [University of Maryland](https://www.rhsmith.umd.edu/) She will start a Masters in Buisness Analytics in August 2020. In May 2020 Camilla finished her B.A. in Statistics and Philosophy at [Macalester College](https://www.macalester.edu/).
 
-Currently, I'm working at [BETA](https://beta.mn) as an Operations and Marketing Associate. BETA is a non-profit accelerator program for start-ups in the twin cities. My role as President of the Entrepreneurship Club at Macalester College sparked my interest in this position at BETA in order to engage more closely with the local start-up community. When I am not studying or working, I like to spend my time playing tennis as captain of the D3 tennis team at Macalester. 
+Currently, she is working at [BETA](https://beta.mn) as an Operations and Marketing Associate. BETA is a non-profit accelerator program for start-ups in the Twin Cities. Her role as President of the Entrepreneurship Club at Macalester College sparked her interest in this position at BETA in order to engage more closely with the local start-up community. When she is not studying or working, she likes to spend her time outside and playing tennis. 
