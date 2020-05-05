@@ -44,6 +44,6 @@ user_groups:
 - Visitors
 ---
 
-Camilla is a incoming student at the Robert H. Smith School of Buisness at the [University of Maryland](https://www.rhsmith.umd.edu/) She will start a Masters in Buisness Analytics in August 2020. In May 2020 Camilla finished her B.A. in Statistics and Philosophy at [Macalester College](https://www.macalester.edu/).
+Camilla is a incoming student at the Robert H. Smith School of Buisness at the [University of Maryland](https://www.rhsmith.umd.edu/) where she will start a Masters in Buisness Analytics in August 2020. In May 2020 Camilla finished her B.A. in Statistics and Philosophy at [Macalester College](https://www.macalester.edu/).
 
-Currently, she is working at [BETA](https://beta.mn) as an Operations and Marketing Associate. BETA is a non-profit accelerator program for start-ups in the Twin Cities. Her role as President of the Entrepreneurship Club at Macalester College sparked her interest in this position at BETA in order to engage more closely with the local start-up community. When she is not studying or working, she likes to spend her time outside and playing tennis. 
+Currently, she is working at [BETA](https://beta.mn) as an Operations and Marketing Associate. BETA is a non-profit accelerator program for start-ups in the Twin Cities. Her role as President of the Entrepreneurship Club at Macalester College sparked her interest in this position at BETA in order to engage more closely with the local start-up community. When she is not studying or working, Camilla likes to spend her time outside and playing tennis. 

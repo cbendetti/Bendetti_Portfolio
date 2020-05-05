@@ -10,7 +10,7 @@ links:
 #  name: Follow
 #  url: https://twitter.com/georgecushen
 # slides: example
-summary: This project explores the relationship between price and the AirBnb listings in New York City. 
+summary: This project explores the relationship between price and AirBnb listings in New York City. 
 tags:
 - Statistics and Data Science 
 title: Analyzing AirBnb Price Data in New York City
