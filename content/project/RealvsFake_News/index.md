@@ -17,4 +17,6 @@ url_video: ""
 
 {{% staticref "files/RealvsFake.html" %}}View My Report{{% /staticref %}}
 
-Abstract: The goal of this project was to perform a classification analysis which required work with text data (from real vs fake news articles). We found that all capital letters in the title of an article, all capital letters in the body text of an article, and a sentiment of disgust were most predictive of a fake news article. 
+Abstract: 
+
+The goal of this project was to perform a classification analysis that required work with text data (from real vs fake news articles). We found that all capital letters in the title of an article, all capital letters in the body text of an article, and sentiment of disgust were most predictive of a fake news article. 

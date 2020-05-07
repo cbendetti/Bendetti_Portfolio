@@ -14,7 +14,7 @@ library(ggplot2)
 library(caret)
 ```
 
-Thank you to our professor Alicia Johnson and Buzzfeed for providing this dataset. The original dataset included columns for the title of the article, the text of the article, the author, the url, the source, and the real or fake classification. 
+Thank you to our professor Alicia Johnson and Buzzfeed for providing this dataset. The original dataset included columns for the title of the article, the text of the article, the author, the URL, the source, and the real or fake classification. 
 ```{r}
 buzz <- read.csv("https://www.macalester.edu/~ajohns24/data/buzzfeed.csv")
 ```
@@ -86,7 +86,7 @@ Real - Article 171
 
 ### Drawbacks: 
 
-One rawback is that when we look for ALL CAPS we sometimes catch acronyms. For example, websites like CNN report real real, but we found many fake articles that use all capital letters in the title. Another drawback is that text analysis is less computationally efficent because we have to scan all the text. We also have to make partial judgements on what is important in writing like punctuation, slang, and sentiment. Additionally, many factors that might be better predictors of whether or not an article is fake are content based and hard to capture in variables. While we are able to use the sentiment dictionary to assess the sentiment of the articles, there is much variation in content that goes beyond existing dictionaries.
+One drawback is that when we look for ALL CAPS we sometimes catch acronyms. For example, websites like CNN report are real, but we found many fake articles that use all capital letters in the title. Another drawback is that text analysis is less computationally efficient because we have to scan all the text. We also have to make partial judgments on what is important in writing like punctuation, slang, and sentiment. Additionally, many factors that might be better predictors of whether or not an article is fake are content-based and hard to capture in variables. While we can use the sentiment dictionary to assess the sentiment of the articles, there is much variation in content that goes beyond existing dictionaries.
 
 
 # Step 2: Constructing the Model
@@ -192,9 +192,11 @@ After looking at a summary of the data, we found that there are 91 real articles
 
 # Creating a TREE model
 
-We used a tree model in order to select our variables and predict whether or not an article is fake news. We started by including all of our variables as predictors in tree_model, with a cp range of (0.01, 0.5). We selected this range after looking at a bigger range and narrowing after we saw the accuracy leveled off at 0.835. We used the `best` selection function to select a cp value because we wanted to most accurately predict the truthfulness of a source. As we can see from the plot of cp values below, cp values from slightly after 0.04 onward all had the same accuracy values. The `best` function always includes that largest cp value with the best accuracy rate so it will always be the largest value we include since the accuracy leveled off. Because of this, our best cp value is 0.5.  
+We used a tree model to select our variables and predict whether or not an article is fake news. We started by including all of our variables as predictors in tree_model, with a cp range of (0.01, 0.5). We selected this range after looking at a bigger range and narrowing after we saw the accuracy leveled off at 0.835. We used the `best` selection function to select a cp value because we wanted to most accurately predict the truthfulness of a source. As we can see from the plot of cp values below, cp values from slightly after 0.04 onward all had the same accuracy values. The `best` function always includes that largest cp value with the best accuracy rate so it will always be the largest value we include since the accuracy leveled off. Because of this, our best cp value is 0.5.  
+
 As we can see in the following plot, the only important predictor in the tree with cp 0.5 is whether or not the news source is in the top four news sources.  
-Since top_four is probably too predictive, however, we built another tree model without this predictor in order to find the other significant predictors. 
+
+Since top_four is probably too predictive, however, we built another tree model without this predictor to find the other significant predictors. 
 
 ### Tree 1
 ```{r cache=FALSE}
@@ -267,7 +269,7 @@ tree_model_2$results %>%
 
 # Building a FOREST model
 
-To improve our tree function above, we built a forest model in order to test the accuracy of many trees. As the plot of our accuracies shows, the accuracy of the model changes dramatically and dynamically when you add more variables to the model. Our final model includes three variables: the number of capital letters in the title, the number of capital letters in the text, and the sentiment of disgust. Furthermore, the confusion matrix shows that the model incorrectly classifies real articles ~31% of the time and fake articles only ~24% of the time. Therefore, there is a higher likelyhood of a false positive than a true negative prediction using these three predictors. 
+To improve our tree function above, we built a forest model to test the accuracy of many trees. As the plot of our accuracies shows, the accuracy of the model changes dramatically and dynamically when you add more variables to the model. Our final model includes three variables: the number of capital letters in the title, the number of capital letters in the text, and the sentiment of disgust. Furthermore, the confusion matrix shows that the model incorrectly classifies real articles ~31% of the time and fake articles only ~24% of the time. Therefore, there is a higher likelyhood of a false positive than a true negative prediction using these three predictors. 
 
 ### Forest model
 ```{r}
@@ -328,14 +330,14 @@ tree_model_2$results%>%
 ```
 
 
-After comparing the tree and the forest model, we recommend using our forest model because the forest model(~73.8%) has a higher accuracy rate than the tree model(~72.6%) . This should be expected, because forests re-test many trees to find the most accurate predictors for our model. Although the tree model is simpler since it uses only one predictor, we think it is appropriate to look at two other predictors to increase the accuracy rate of classifying news articles.   
+After comparing the tree and the forest model, we recommend using our forest model because the forest model(~73.8%) has a higher accuracy rate than the tree model(~72.6%). This should be expected because forests re-test many trees to find the most accurate predictors for our model. Although the tree model is simpler since it uses only one predictor, we think it is appropriate to look at two other predictors to increase the accuracy rate of classifying news articles.   
 
 
 # Step 3: Summarize
 
-In our final model we chose to include all of our predictors except top_four. We found that top_four would be too predictive of realness of the article. If the article was from one of our predetermined top four sources (cnn, washington post, politico, abc) it was always real. Therefore, it would always predict real articles if they were from the top four news sources. 
+In our final model, we chose to include all of our predictors except top_four. We found that top_four would be too predictive of the realness of the article. If the article was from one of our predetermined top four sources (CNN, Washington Post, Politico, ABC) it was always real. Therefore, it would always predict real articles if they were from the top four news sources. 
 
-Social media was not as useful as we thought it might be. The social media predictor is counting the number of times "twitter", "instagram", and "facebook" are included as text in the article. However, our code does not include the mentions when those words are used in buttons. For example, some articles prompt their readers to share the article on social media and if this is through a button, our code will not catch the mention. 
+Social media was not as useful as we thought it might be. The social media predictor is counting the number of times "twitter", "Instagram", and "Facebook" are included as text in the article. However, our code does not include the mentions when those words are used in buttons. For example, some articles prompt their readers to share the article on social media and if this is through a button, our code will not catch the mention. 
 
 ### Plots
 ```{r, include=FALSE}
@@ -360,7 +362,7 @@ cap_text
 disgust
 ```
 
-The predictors that we found to be most useful are title_caps, text_caps, and disgust. title_caps counts how many capital letters a title has. We predicted that titles that have alot of capital letters, for example words that are in ALL CAPS, would be fake. text_caps counts how many capital letters are in the text. Disgust detects the sentiment of the the text. Disgust was the most predictive of whether or not an article was fake.
+The predictors that we found to be most useful are title_caps, text_caps, and disgust. title_caps counts how many capital letters a title has. We predicted that titles that have a lot of capital letters, for example, words that are in ALL CAPS, would be fake. text_caps counts how many capital letters are i8n the text. Disgust detects the sentiment of the text. Disgust was the most predictive of whether or not an article was fake.
 
 
 # Step 4: Contributions
