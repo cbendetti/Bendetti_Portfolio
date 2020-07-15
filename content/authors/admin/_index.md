@@ -1,7 +1,14 @@
 ---
 authors:
 - admin
-bio: 
+bio:
+interests:
+- Correlated Data
+- Crime Data & Analysis
+- Data Science
+- Data Visualization 
+- Data Ethics
+- Database Management 
 education:
   courses:
   - course: Masters in Business Analytics
@@ -13,13 +20,6 @@ education:
     relevant courses: Computer Science, Linear Algebra, Probability, Discrete Mathematics, Statistical Modeling, Data Science, Machine Learning, Correlated Data, Logic, Bayesian Statistics, Causal Inference, Database Management Systems
     year: 2020
 email: ""
-interests:
-- Correlated Data
-- Crime Data & Analysis
-- Data Science
-- Data Visualization 
-- Data Ethics
-- Database Management
 organizations:
 - name: University of Maryland
   url: ""
@@ -44,4 +44,4 @@ user_groups:
 - Visitors
 ---
 
-Camilla is an incoming student at the Robert H. Smith School of Business at the [University of Maryland](https://www.rhsmith.umd.edu/) where she will start a Masters in Business Analytics in August 2020. In May 2020 Camilla finished her B.A. in Statistics and Philosophy at [Macalester College](https://www.macalester.edu/).
+Camilla is an incoming student at the Robert H. Smith School of Business at the [University of Maryland](https://www.rhsmith.umd.edu/) where she will start a Masters in Business Analytics in August 2020. In May 2020 Camilla completed her B.A. in Statistics and Philosophy at [Macalester College](https://www.macalester.edu/).
