@@ -6,7 +6,7 @@ education:
   courses:
   - course: Masters in Business Analytics
     institution: University of Maryland
-    relevant courses: 
+    relevant courses: Database Management System, Decision Analysis, Data Processing and Analysis, Data Models and Decisions
     year: 2021
   - course: B.A. in Statistics and Philosophy
     institution: Macalester College
@@ -45,5 +45,3 @@ user_groups:
 ---
 
 Camilla is an incoming student at the Robert H. Smith School of Business at the [University of Maryland](https://www.rhsmith.umd.edu/) where she will start a Masters in Business Analytics in August 2020. In May 2020 Camilla finished her B.A. in Statistics and Philosophy at [Macalester College](https://www.macalester.edu/).
-
-Currently she is working at [BETA](https://beta.mn) as an Operations and Marketing Associate. BETA is a non-profit accelerator program for start-ups in the Twin Cities. Her role as President of the Entrepreneurship Club at Macalester College sparked her interest in this position to engage more closely with the local start-up community. When she is not studying or working, Camilla likes to spend her time outdoors and playing tennis. 
