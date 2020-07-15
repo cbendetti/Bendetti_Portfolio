@@ -10,7 +10,7 @@ education:
     year: 2021
   - course: B.A. in Statistics and Philosophy
     institution: Macalester College
-    relevant courses: Bayesian Statistics, Correlated Data, Statistical Machine Learning, Computational Linear Algebra, Probability, Data Science, Causal Inference
+    relevant courses: Computer Science, Linear Algebra, Probability, Discrete Mathematics, Statistical Modeling, Data Science, Machine Learning, Correlated Data, Logic, Bayesian Statistics, Causal Inference, Database Management Systems
     year: 2020
 email: ""
 interests:
