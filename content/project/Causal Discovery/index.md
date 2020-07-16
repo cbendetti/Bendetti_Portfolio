@@ -9,12 +9,11 @@ tags:
 title: A Causal Research Investigation of COVID-19
 
 ---
+{{% staticref "files/causal_discovery_slides.pdf" %}}View My Presentation{{% /staticref %}}
 
-View the Presentation{{% staticref "files/causal_discovery_slides.pdf" %}}View My Report{{% staticref "files/covid_slides.pdf" %}}
+{{% staticref "files/covid_slides.pdf" %}}View My Report{{% /staticref %}}
 
 Abstract: 
 
 In this report, with the help of my collaborator KG Nguyen, I complete a causal research investigation of COVID-19. The report corresponds to the slides of the presentation. 
-
-#[Photo Credits](https://images.app.goo.gl/kSMLgrKsXv8LfJcb6)
 
