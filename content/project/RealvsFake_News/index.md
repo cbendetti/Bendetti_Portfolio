@@ -5,7 +5,7 @@ image:
   caption:
   focal_point: Smart
 links:
-summary: This project is a classificaion analysis using text data
+summary: This project is a classification analysis using text data.
 tags:
 - Statistics and Data Science
 title: Deciphering Real vs. Fake News

@@ -5,10 +5,10 @@ image:
   caption: 
   focal_point: Smart
 links:
-summary: A project for Introduction to Data Science exploring the role of race, gender, and region in the implementation of the death penalty.
+summary: This is a project from Introduction to Data Science that explores the role of race, gender, and region in the implementation of the death penalty.
 tags:
 - Statistics and Data Science 
-title: An Analysis of the Death Penalty in the United States
+title: Analysis of the Death Penalty in the United States
 url_code: ""
 url_pdf: ""
 url_slides: ""
